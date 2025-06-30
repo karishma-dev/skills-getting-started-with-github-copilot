@@ -19,6 +19,32 @@ document.addEventListener("DOMContentLoaded", () => {
         activityCard.className = "activity-card";
 
         const spotsLeft = details.max_participants - details.participants.length;
+        
+        // Create participants list HTML
+        const participantsSection = document.createElement("div");
+        participantsSection.className = "participants-section";
+
+        const participantsHeader = document.createElement("h5");
+        participantsHeader.textContent = "Current Participants:";
+        participantsSection.appendChild(participantsHeader);
+
+        if (details.participants.length > 0) {
+          const participantsList = document.createElement("ul");
+          participantsList.className = "participants-list";
+          details.participants.forEach(email => {
+            const listItem = document.createElement("li");
+            listItem.textContent = email;
+            participantsList.appendChild(listItem);
+          });
+          participantsSection.appendChild(participantsList);
+        } else {
+          const noParticipantsMessage = document.createElement("p");
+          noParticipantsMessage.className = "no-participants";
+          noParticipantsMessage.textContent = "No participants yet";
+          participantsSection.appendChild(noParticipantsMessage);
+        }
+
+        activityCard.appendChild(participantsSection);
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
